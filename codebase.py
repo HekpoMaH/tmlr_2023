@@ -7,7 +7,7 @@ from sklearn.gaussian_process.kernels import RBF, WhiteKernel
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 dtype = torch.float
-device = torch.device("mps")
+# device = torch.device("mps")
 print(device, dtype)
 
 
@@ -395,7 +395,7 @@ def train_gp(
         y_grid_, std_grid = [], []
         for i in range(num_batch):
             y_, std = gpr.predict(x_grid[i * grid_batch_size:(i + 1) * grid_batch_size], return_std=True)
-            y_grid_.append(y_[:, 0])
+            y_grid_.append(y_[:])
             std_grid.append(std)
         model = gpr
         output = {
